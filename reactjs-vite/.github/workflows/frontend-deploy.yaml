@@ -1,0 +1,25 @@
+name: Execute deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        working-directory: ./Frontend
+        run: npm i
+
+      - name: Execute build
+        working-directory: ./Frontend
+        run: npm run build
+
+      # Add necessary steps for uploading through SSH/deploy to Amplify/running other scripts remotely
